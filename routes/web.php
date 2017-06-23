@@ -18,5 +18,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('auth/{provider}', 'Auth\LoginController@redirectToProvider');
-Route::get('auth/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
+Route::get('/auth/{provider}', 'Auth\LoginController@redirectToProvider');
+Route::get('/auth/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
+Route::get('/cvupload','cvparseController@index');
+Route::post('/cvupload','cvparseController@formResponse');
