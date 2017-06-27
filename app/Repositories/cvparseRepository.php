@@ -5,7 +5,6 @@ namespace App\Repositories;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Smalot\PdfParser\parser;
-use Smalot\PdfParser\parser;
 use PhpOffice\PhpWord\PhpWord;
 
 
@@ -53,10 +52,9 @@ class cvparseRepository extends Controller
     {
        
         // Read contents
-        $name = basename(__FILE__, '.php');
-        $source = __DIR__ . "/resources/{$name}.docx";
-        " Reading contents from `{$source}`", EOL;
-        $phpWord = \PhpOffice\PhpWord\IOFactory::load($source);
+        $phpWord = \PhpOffice\PhpWord\IOFactory::load($file);
+
+        dd($phpWord);
 
     	return "dit bericht komt uit de docxparse functie";
     }
