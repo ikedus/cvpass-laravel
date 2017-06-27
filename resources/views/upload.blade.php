@@ -17,10 +17,17 @@
         </ul>
     </div>
 @endif
-                    <form action="/cvupload" method="post" enctype="multipart/form-data">
+                    <form class="form-horizontal" action="/cvupload" method="post" enctype="multipart/form-data">
                         {{ csrf_field() }}
-                        <input type="file" name="file">
-                        <input type="submit">
+                        <div class="form-group">
+                            <label for="file" class="col-sm-2 control-label">cv:</label>
+                            <div class="col-sm-10">
+                                <input id="file" type="file" name="file">
+                            </div>
+                            
+                        </div>
+                        
+                        <input class="col-sm-12 btn btn-default" type="submit">
                     </form>
                 </div>
             </div>
