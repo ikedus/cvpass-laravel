@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Smalot\PdfParser\parser;
 
 class cvparseRepository extends Controller
 {
@@ -15,20 +16,38 @@ class cvparseRepository extends Controller
     	
     }
 
-    public function parse($file)
-    {
-    	switch (pathinfo($file, PATHINFO_EXTENSION)) {
+    public function parse($request)
+    {	
+    	$file = $request->file('file');
+    	// dd($file);
+    	$this->validate($request, [
+        'file' => 'required|mimes:pdf,docx,doc,txt',
+    	]);
+    	switch ($request->file->extension()) {
     		case 'pdf':
-    			return "hoi je bestandje is een pdf";
+    			return $this->pdfparse($file);
     			break;
 
     		case 'docx':
-    			return "hoi je bestandje is docx";
+    			return $this->docxparse($file);;
     			break;
     		
     		default:
-    			return "bestands type " . pathinfo($file, PATHINFO_EXTENSION) . " niet ondersteund ofzo";
+    			return "bestands type " . $request->file->extension() . " niet ondersteund ofzo";
     			break;
     	}
+    }
+
+    public function pdfparse($file)
+    {
+    	$parsedpdf = new parser;
+    	$pdf    = $parsedpdf->parseFile($file);
+    	$text = $pdf->getText();
+    	return $text;
+    }
+
+    public function docxparse($file)
+    {
+    	return "dit bericht komt uit de docxparse functie";
     }
 }
