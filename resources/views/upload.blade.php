@@ -20,7 +20,7 @@
                     <form class="form-horizontal" action="/cvupload" method="post" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <div class="form-group">
-                            <label for="file" class="col-sm-2 control-label">cv:</label>
+                            <label for="file" class="col-sm-2 control-label">CV:</label>
                             <div class="col-sm-10">
                                 <input id="file" type="file" name="file">
                             </div>
