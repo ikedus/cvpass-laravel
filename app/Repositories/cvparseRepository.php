@@ -54,8 +54,31 @@ class cvparseRepository extends Controller
         // Read contents
         $phpWord = \PhpOffice\PhpWord\IOFactory::load($file);
 
-        dd($phpWord);
+        $sections = $phpWord->getSections();
+        // dd($sections);
+        $text = "";
 
-    	return "dit bericht komt uit de docxparse functie";
+        foreach ($sections as $s) {
+            $ele = $s->getElements();
+            // dd($ele);
+            foreach ($ele as $e) {
+                dd($e);
+                if (get_class($e) === 'PhpOffice\PhpWord\Element\Text') {
+                    $text .= $e->getText() . " \n";
+                } elseif (get_class($e) === 'PhpOffice\PhpWord\Element\TextBreak') {
+                    // echo "tb";
+                    $text .= " \n";
+                } elseif (get_class($e) === 'PhpOffice\PhpWord\Element\TextRun' ) {
+                    $r = $e->getElements();
+                    foreach ($r as $a) {
+                       $text .= $a->getText() . " \n";
+                    }
+                } else {
+                    // throw new Exception('Unknown class type ' . get_class($e));
+                }
+            }
+        }
+
+    	return $text;
     }
 }
