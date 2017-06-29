@@ -55,14 +55,11 @@ class cvparseRepository extends Controller
         $phpWord = \PhpOffice\PhpWord\IOFactory::load($file);
 
         $sections = $phpWord->getSections();
-        // dd($sections);
         $text = "";
 
         foreach ($sections as $s) {
             $ele = $s->getElements();
-            // dd($ele);
             foreach ($ele as $e) {
-                dd($e);
                 if (get_class($e) === 'PhpOffice\PhpWord\Element\Text') {
                     $text .= $e->getText() . " \n";
                 } elseif (get_class($e) === 'PhpOffice\PhpWord\Element\TextBreak') {
